@@ -3,7 +3,7 @@ template.innerHTML = `
 <style>
     #wrapper {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
     }
@@ -11,8 +11,12 @@ template.innerHTML = `
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        width: 350px;
+        width: 300px;
         font-size: 100px;
+    }
+    #actions {
+        display: flex;
+        flex-direction: column;
     }
     button {
         font-size: 80px;
@@ -23,6 +27,12 @@ template.innerHTML = `
 
 <div id="wrapper">
     <div id="numberButtons"></div>
+    <div id="actions">
+        <button id="add">+</button>
+        <button id="subtract">-</button>
+        <button id="divide">/</button>
+        <button id="multiply">*</button>
+    </div>
     <div id="display">display</div>
 </div>
 `
@@ -45,6 +55,7 @@ customElements.define("my-calculator",
                 button.textContent = i
                 this.numberButtons.appendChild(button)
             }
+         
             this.numberZero = this.shadowRoot.querySelector("#number0")
             this.numberOne = this.shadowRoot.querySelector("#number1")
             this.numberTwo = this.shadowRoot.querySelector("#number2")
