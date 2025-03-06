@@ -7,17 +7,23 @@ template.innerHTML = `
         align-items: center;
         justify-content: center;
     }
-    #container {
+    #numberButtons {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        width: 300px;
+        width: 350px;
         font-size: 100px;
+    }
+    button {
+        font-size: 80px;
+        height: 100px;
+        width: 100px;
     }
 </style>
 
 <div id="wrapper">
-    <div id="container"></div>
+    <div id="numberButtons"></div>
+    <div id="display">display</div>
 </div>
 `
 customElements.define("my-calculator", 
@@ -26,16 +32,42 @@ customElements.define("my-calculator",
             super()
             this.attachShadow({ mode: "open"})
             this.shadowRoot.appendChild(template.content.cloneNode(true))
-            this.container = this.shadowRoot.querySelector("#container")
+            this.numberButtons = this.shadowRoot.querySelector("#numberButtons")
+            this.display = this.shadowRoot.querySelector("#display")
+
+            this.currentValue = 0
+            this.newValue = 0
         }
         connectedCallback () {
-            for (let i = 0; i < 3; i++) {
-                for (let j = 0; j < 5; j++) {
-                    const button = document.createElement("div")
-                    button.textContent = 1
-                    this.container.appendChild(button)
-                }
+            for (let i = 9; i > -1; i--) {
+                const button = document.createElement("button")
+                button.setAttribute("id", `number${i}`)
+                button.textContent = i
+                this.numberButtons.appendChild(button)
             }
+            this.numberZero = this.shadowRoot.querySelector("#number0")
+            this.numberOne = this.shadowRoot.querySelector("#number1")
+            this.numberTwo = this.shadowRoot.querySelector("#number2")
+            this.numberThree = this.shadowRoot.querySelector("#number3")
+            this.numberFour = this.shadowRoot.querySelector("#number4")
+            this.numberFive = this.shadowRoot.querySelector("#number5")
+            this.numberSix = this.shadowRoot.querySelector("#number6")
+            this.numberSeven = this.shadowRoot.querySelector("#number7")
+            this.numberEight = this.shadowRoot.querySelector("#number8")
+            this.numberNine = this.shadowRoot.querySelector("#number9")
         }
+        add (first, second) {
+            return first + second
+        }
+        multiply (first, second) {
+            return first * second
+        }
+        subtract (first, second) {
+            return first - second
+        }
+        divide (first, second) {
+            return first / second
+        }
+        
     }
 )
